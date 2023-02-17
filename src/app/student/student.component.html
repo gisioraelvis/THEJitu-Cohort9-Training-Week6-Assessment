@@ -1,0 +1,48 @@
+<h2>Add New Student</h2>
+<form #newStudentForm="ngForm" (ngSubmit)="onSubmit(newStudentForm)">
+    <div class="details-input">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="newStudent.name" required>
+    </div>
+    <div class="details-input">
+        <label for="balance">Balance:</label>
+        <input type="number" id="balance" name="balance" [(ngModel)]="newStudent.balance" required>
+    </div>
+    <button type="submit">Add Student</button>
+</form>
+<div>
+    <h2>Students With Balance</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody class="negative-balance">
+            <tr *ngFor="let student of getStudentsWithBalance()" [ngClass]="{'negative-balance': student.balance < 0}">
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.balance | currency:"Ksh " }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h2>Students Without Balance</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let student of getStudentsWithoutBalance()" [ngClass]="{'negative-balance': student.balance < 0}">
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.balance | currency:"Ksh " }}</td>
+        </tr>
+    </tbody>
+</table>
